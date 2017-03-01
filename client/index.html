@@ -19,10 +19,10 @@
 
   var socket = io.connect();
   //broadcast.
-  socket.emit('message' , {value:'そいっ！'});
-  socket.on('from_server' , function(data){
-    console.log(data.value);
-  });
+  // socket.emit('message' , {value:'そいっ！'});
+  // socket.on('from_server' , function(data){
+  //   console.log(data.value);
+  // });
 
 //送信ボタンのクリックイベント、ログを追加していく
 
@@ -45,20 +45,31 @@ function soushin(startchat){
   var comment = document.getElementById("chatbox");
   //console.log(comment.value,"");  中身の確認
   if((comment.value) == ""){
-    console.log("何か入れてください");
+    // console.log("何か入れてください");
   }else{
-    console.log("動いてるよ");
-    var clog = document.getElementById("waku");
+    // console.log("動いてるよ");
+    // var clog = document.getElementById("waku");
 
-    socket.emit('message' , {value:namebox.value ,chatbox.value});
-    socket.on('from_server' , function(namedata , chatdata){
-      console.log("サーバーからもらってきたデータは" + namedata + "と" chatdata);
-    }
-      logarea.innerHTML = logarea.innerHTML + dataname.value + "\t" + chatdata.value + "\n";
-  });
+    socket.emit('message' , {value:chatbox.value});
+    socket.on('from_server' , function(chatdata){
+      console.log("サーバーからもらってきたデータは" + chatdata.value);
 
-// logarea.innerHTML = (data.value);
-    // logarea.innerHTML = (logarea.innerHTML + data.value + "\t" + comment.value + "\n");
+
+    // socket.emit('message' , {value:namebox.value ,chatbox.value});
+    // socket.on('from_server' , function(namedata , chatdata){
+    //   console.log("サーバーからもらってきたデータは" + namedata + "と" chatdata);
+    // }
+    //
+    // socket.emit('message' , {value:namebox.value ,chatbox.value});
+    // socket.on('from_server' , function(namedata , chatdata){
+    //   console.log("サーバーからもらってきたデータは" + namedata + "と" chatdata);
+    // }
+
+      logarea.innerHTML = (logarea.innerHTML + chatdata.value + "\n");
+    });
+  }
+
+    // logarea.innerHTML = logarea.innerHTML + data.value + "\t" + comment.value + "\n";
 }
 
 

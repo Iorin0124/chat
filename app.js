@@ -24,9 +24,18 @@ server.listen(port,function(){
 
 const io = socketio.listen(server);
 io.sockets.on('connection' , function(socket){
-  socket.on('message' , function(namedata , chatdata){
-    console.log(namedata.value);  //受け取ったユーザー名
+  socket.on('message' , function(chatdata){
     console.log(chatdata.value);  //受け取ったチャット内容
-    io.sockets.emit('from_server' , {value: namedata.value , chatdata.value});
+    io.sockets.emit('from_server' , {value:chatdata.value});
   });
 });
+
+
+// const io = socketio.listen(server);
+// io.sockets.on('connection' , function(socket){
+//   socket.on('message' , function(namedata , chatdata){
+//     console.log(namedata.value);  //受け取ったユーザー名
+//     console.log(chatdata.value);  //受け取ったチャット内容
+//     io.sockets.emit('from_server' , {value: namedata.value , chatdata.value});
+//   });
+// });
