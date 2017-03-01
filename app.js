@@ -24,8 +24,9 @@ server.listen(port,function(){
 
 const io = socketio.listen(server);
 io.sockets.on('connection' , function(socket){
-  socket.on('message' , function(data){
-    console.log(data.value);
-    io.sockets.emit('from_server' , {value: data.value});
+  socket.on('message' , function(namedata , chatdata){
+    console.log(namedata.value);  //受け取ったユーザー名
+    console.log(chatdata.value);  //受け取ったチャット内容
+    io.sockets.emit('from_server' , {value: namedata.value , chatdata.value});
   });
 });
