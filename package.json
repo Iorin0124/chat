@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Iorin0124/chat/issues"
   },
-  "homepage": "https://github.com/Iorin0124/chat#readme"
+  "homepage": "https://github.com/Iorin0124/chat#readme",
+  "dependencies": {
+    "socket.io": "^1.7.3"
+  }
 }
