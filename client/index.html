@@ -6,6 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Chat</title>
   <script src = "/socket.io/socket.io.js"></script>
+<style>
+  #waku{height:400px; width:800px; background-color:#ffffe0}
+</style>
 </head>
 <body>
   <h1>Chat room</h1>
@@ -14,14 +17,34 @@
 </div>
 <script>
   var socket = io.connect();
+  //broadcast.
   socket.emit('message' , {value:'そいっ！'})
   socket.on('from_server' , function(data){
     console.log(data.value);
   });
+
+
+var clog = document.getElementById("waku");
+function soushin(startchat){
+  if((startchat.chatbox.value).equals("")){
+    console.log("何か入れてください");
+  }else{
+    console.log("動いてるよ");
+    clog.innerHTML = (startchat.chatbox.value);
+  }
+}
+
+
+
+
 </script>
 <form id="startchat">
-<input type="text" id="chatbox"　size="100">
-
+  <input type="text" id="namebox" value="名無しさん"><br>
+  <input type="text" id="chatbox" size="100" >
+  <input type="button" id="throw" value="送信" onclick="soushin">
 </form>
+<div id="waku">
+  <p>チャットログ</p>
+</div>
 </body>
 </html>
