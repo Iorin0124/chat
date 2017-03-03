@@ -26,6 +26,6 @@ const io = socketio.listen(server);
 io.sockets.on('connection' , function(socket){
   socket.on('message' , function(chatdata){
     console.log("サーバ受け取り" + chatdata.name + chatdata.comment);  //受け取ったチャット内容
-    io.sockets.emit('from_server' , {name:chatdata.name , comment:chatdata.comment});
+    io.sockets.emit('from_server' , { name:chatdata.name , comment:chatdata.comment });
   });
 });

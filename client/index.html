@@ -7,7 +7,7 @@
   <title>Chat</title>
   <script src = "/socket.io/socket.io.js"></script>
 <style>
-  #logspace{height:400px; width:800px; background-color:#ffffe0}
+  #logspace{ height:400px; width:800px; background-color:#ffffe0 }
 </style>
 </head>
 <body>
@@ -27,19 +27,18 @@
 
 <script>
   var socket = io.connect();
-  socket.on('from_server' , function(chatdata){
+  socket.on('from_server' , function(chatdata){ //サーバからデータを受け取る
     console.log("サーバーからもらってきたデータは" + chatdata.name + chatdata.comment);
-    logarea.innerHTML = (logarea.innerHTML + chatdata.name + "\t" + chatdata.comment + "\n");
+    logarea.innerHTML = (chatdata.name + "\t" + chatdata.comment + "\n" + logarea.innerHTML);
   });
 
-  function chatthrow(){ //送信ボタンを押したとき
+  function chatthrow(){ //送信ボタンを押したとき、ハンドルネームとチャット内容をサーバに送る
     var h_name = document.getElementById("namebox").value;
     var comment = document.getElementById("chatbox").value;
-
     if(comment === ""){
       console.log("何か入れてください");
     }else{
-      socket.emit('message' , {name: h_name , comment: comment });
+      socket.emit('message' , { name: h_name , comment: comment });
     }
   }
 </script>
