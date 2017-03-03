@@ -7,20 +7,20 @@
   <title>Chat</title>
   <script src = "/socket.io/socket.io.js"></script>
 <style>
-  #waku{height:400px; width:800px; background-color:#ffffe0}
+  #logspace{height:400px; width:800px; background-color:#ffffe0}
 </style>
 </head>
 <body>
   <h1>Chat room</h1>
 <div class = "massage">
-  <p>ここにメッセージを追加していく予定</p>
+  <p>簡易チャット</p>
 </div>
 <form id="startchat">
   <input type="text" id="namebox" value="名無しさん"><br>
   <input type="text" id="chatbox" size="100" value="">
-  <input type="button" id="throw" value="送信" onclick="send()">
+  <input type="button" id="throw" value="送信" onclick="chatthrow()">
 </form>
-<div id="waku">
+<div id="logspace">
   <center><h2>チャットログ</h2></center>
   <textarea id="logarea" rows="20" cols="100" disabled></textarea>
 </div>
@@ -32,14 +32,12 @@
     logarea.innerHTML = (logarea.innerHTML + chatdata.value + "\n");
   });
 
-  function send(){
-    console.log("kore");
+  function chatthrow(){ //送信ボタンを押したとき
     var comment = document.getElementById("chatbox").value;
     if(comment === ""){
-      // console.log("何か入れてください");
+      console.log("何か入れてください");
     }else{
-      // console.log("動いてるよ");
-      socket.emit('message' , {value: comment});  
+      socket.emit('message' , {value: comment });
     }
   }
 </script>
