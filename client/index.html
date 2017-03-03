@@ -28,16 +28,18 @@
 <script>
   var socket = io.connect();
   socket.on('from_server' , function(chatdata){
-    console.log("サーバーからもらってきたデータは" + chatdata.value);
-    logarea.innerHTML = (logarea.innerHTML + chatdata.value + "\n");
+    console.log("サーバーからもらってきたデータは" + chatdata.name + chatdata.comment);
+    logarea.innerHTML = (logarea.innerHTML + chatdata.name + "\t" + chatdata.comment + "\n");
   });
 
   function chatthrow(){ //送信ボタンを押したとき
+    var h_name = document.getElementById("namebox").value;
     var comment = document.getElementById("chatbox").value;
+
     if(comment === ""){
       console.log("何か入れてください");
     }else{
-      socket.emit('message' , {value: comment });
+      socket.emit('message' , {name: h_name , comment: comment });
     }
   }
 </script>
