@@ -15,75 +15,34 @@
 <div class = "massage">
   <p>ここにメッセージを追加していく予定</p>
 </div>
-<script>
-
-  var socket = io.connect();
-  //broadcast.
-  // socket.emit('message' , {value:'そいっ！'});
-  // socket.on('from_server' , function(data){
-  //   console.log(data.value);
-  // });
-
-//送信ボタンのクリックイベント、ログを追加していく
-
-
-// function soushin(startchat){
-//   var comment = document.getElementById("chatbox");
-//   //console.log(comment.value,"");  中身の確認
-//   if((comment.value) == ""){
-//     console.log("何か入れてください");
-//   }else{
-//     console.log("動いてるよ");
-//
-//     var clog = document.getElementById("waku");
-//     //    console.log(logarea);
-//     logarea.innerHTML = (logarea.innerHTML + namebox.value + "\t" + comment.value + "\n");
-//   }
-// }
-
-function soushin(startchat){
-  var comment = document.getElementById("chatbox");
-  //console.log(comment.value,"");  中身の確認
-  if((comment.value) == ""){
-    // console.log("何か入れてください");
-  }else{
-    // console.log("動いてるよ");
-    // var clog = document.getElementById("waku");
-
-    socket.emit('message' , {value:chatbox.value});
-    socket.on('from_server' , function(chatdata){
-      console.log("サーバーからもらってきたデータは" + chatdata.value);
-
-
-    // socket.emit('message' , {value:namebox.value ,chatbox.value});
-    // socket.on('from_server' , function(namedata , chatdata){
-    //   console.log("サーバーからもらってきたデータは" + namedata + "と" chatdata);
-    // }
-    //
-    // socket.emit('message' , {value:namebox.value ,chatbox.value});
-    // socket.on('from_server' , function(namedata , chatdata){
-    //   console.log("サーバーからもらってきたデータは" + namedata + "と" chatdata);
-    // }
-
-      logarea.innerHTML = (logarea.innerHTML + chatdata.value + "\n");
-    });
-  }
-
-    // logarea.innerHTML = logarea.innerHTML + data.value + "\t" + comment.value + "\n";
-}
-
-
-
-
-</script>
 <form id="startchat">
   <input type="text" id="namebox" value="名無しさん"><br>
   <input type="text" id="chatbox" size="100" value="">
-  <input type="button" id="throw" value="送信" onclick="soushin()">
+  <input type="button" id="throw" value="送信" onclick="send()">
 </form>
 <div id="waku">
   <center><h2>チャットログ</h2></center>
   <textarea id="logarea" rows="20" cols="100" disabled></textarea>
 </div>
+
+<script>
+  var socket = io.connect();
+  socket.on('from_server' , function(chatdata){
+    console.log("サーバーからもらってきたデータは" + chatdata.value);
+    logarea.innerHTML = (logarea.innerHTML + chatdata.value + "\n");
+  });
+
+  function send(){
+    console.log("kore");
+    var comment = document.getElementById("chatbox").value;
+    if(comment === ""){
+      // console.log("何か入れてください");
+    }else{
+      // console.log("動いてるよ");
+      socket.emit('message' , {value: comment});  
+    }
+  }
+</script>
+
 </body>
 </html>
